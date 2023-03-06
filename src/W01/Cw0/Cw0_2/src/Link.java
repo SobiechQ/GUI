@@ -1,12 +1,15 @@
 public class Link {
     private static Link[] links; //All possible links
     private final Element[] elements = new Element[2];
+    private int cost;
 
     private Link(Element elementLeft, Element elementRight){
         this.elements[0]=elementLeft;
         this.elements[1]=elementRight;
+        this.cost= (int) Math.round(Math.random()*100);
 
-        this.callConnectionAdd();
+        if(Math.random()>0.6)
+            this.callConnectionAdd();
     }
 
 
@@ -43,7 +46,7 @@ public class Link {
         return this.elements[index];
     }
     private void callConnectionAdd(){
-        elements[0].connectionAdd(elements[1]);
-        elements[1].connectionAdd(elements[0]);
+        elements[0].connectionAdd(elements[1], this.cost);
+        elements[1].connectionAdd(elements[0], this.cost);
     }
 }
