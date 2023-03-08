@@ -75,6 +75,12 @@ public class Element {
     public Element getPartnerById(int index){
         return this.partnersLinked[index];
     }
+    public int getPartnerIndexById(int input){
+        return getPartnerById(input).getIndex();
+
+        //returnes ID of partner (The private final index parameter)
+        //by index in partners linked array.
+    }
 
     public int getCostById(int index) {
         return cost[index];

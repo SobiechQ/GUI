@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
 
+
 public class MyFrame extends JFrame{
         private static final int SIZE = 700;
         private static final int RADIUS_OF_ELEMENT = (SIZE)/20;
@@ -76,6 +77,9 @@ public class MyFrame extends JFrame{
                             (e.getPartnerById(i).getY() + e.getY()) / 2
                     );
                 }
+            }
+            for (int i = 0; i < Element.getElementsLength(); i++) {
+                Element.getElementById(i).setXY();
             }
 
 
