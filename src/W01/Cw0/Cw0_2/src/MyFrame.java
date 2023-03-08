@@ -3,7 +3,7 @@ import java.awt.*;
 
 
 public class MyFrame extends JFrame{
-        private static final int SIZE = 700;
+        private static final int SIZE = 1000;
         private static final int RADIUS_OF_ELEMENT = (SIZE)/20;
         private static final int RADIUS_OF_SMALL = (SIZE)/150;
         public static MyFrame myFrame;
