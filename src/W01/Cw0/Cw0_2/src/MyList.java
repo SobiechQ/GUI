@@ -19,7 +19,7 @@ public class MyList {
     }
     public Element popTop(){
         Element tmp = this.getHead();
-        this.setNext(this);
+        this.getNext()
         return tmp;
     }
     public void sout(){
@@ -45,5 +45,8 @@ public class MyList {
 
     public void setNext(MyList next) {
         this.next = next;
+    }
+    public boolean isNull(){
+        return this.head==null;
     }
 }

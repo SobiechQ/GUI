@@ -8,13 +8,10 @@ public class Main {
         myList.pushTop(Element.getElementById(1));
         myList.pushTop(Element.getElementById(3));
         myList.pushTop(Element.getElementById(4));
+        System.out.println(myList.popTop().getIndex());
+        System.out.println(myList.popTop().getIndex());
+        System.out.println(myList.popTop().getIndex());
 //        myList.sout();
-        System.out.println(myList.popTop().getIndex());
-        System.out.println(myList.popTop().getIndex());
-        myList.pushTop(Element.getElementById(4));
-        myList.pushTop(Element.getElementById(4));
-        myList.pushTop(Element.getElementById(4));
-        myList.sout();
 
 
     }
