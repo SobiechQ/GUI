@@ -3,6 +3,19 @@ public class Main {
         new MyFrame();
         Element.setElements(7);
         Dijkstra.set(Element.getElementById(0),Element.getElementById(1));
-        Dijkstra.sout();
+//        Dijkstra.sout();
+        MyList myList = new MyList(Element.getElementById(0));
+        myList.pushTop(Element.getElementById(1));
+        myList.pushTop(Element.getElementById(3));
+        myList.pushTop(Element.getElementById(4));
+//        myList.sout();
+        System.out.println(myList.popTop().getIndex());
+        System.out.println(myList.popTop().getIndex());
+        myList.pushTop(Element.getElementById(4));
+        myList.pushTop(Element.getElementById(4));
+        myList.pushTop(Element.getElementById(4));
+        myList.sout();
+
+
     }
 }

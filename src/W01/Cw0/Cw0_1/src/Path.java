@@ -1,5 +1,3 @@
-import java.util.LinkedList;
-
 public class Path {
     private static int shortestLength[];
     private static Element start;
