@@ -4,8 +4,7 @@ import java.awt.*;
 public class MyFrame extends JFrame{
         private static final int SIZE = 700;
         private static final int RADIUS_OF_ELEMENT = (SIZE)/20;
-        private static final int RADIUS_OF_SMALL = (SIZE)/200;
-//        public static Element[] elements;
+        private static final int RADIUS_OF_SMALL = (SIZE)/150;
         public static MyFrame myFrame;
         private static final Color[] colors = {
                 Color.decode("#264653"),
@@ -48,6 +47,37 @@ public class MyFrame extends JFrame{
                 fillRing(g,e.getX(),e.getY(),RADIUS_OF_ELEMENT,4);
             }
 
+            //connections
+            for (Element elementBase : Element.getElements()) {
+                for (int i = 0; i < elementBase.getPartnersCounter(); i++) {
+                    g.fillArc(elementBase.getPartnerById(i).getX() - RADIUS_OF_SMALL ,elementBase.getPartnerById(i).getY()-RADIUS_OF_SMALL,RADIUS_OF_SMALL*2,RADIUS_OF_SMALL*2,0,360);
+                    g2.drawLine(elementBase.getX(),elementBase.getY(),elementBase.getPartnerById(i).getX(),elementBase.getPartnerById(i).getY());
+                }
+            }
+            Font font = new Font("Lato", Font.PLAIN, 40);
+            g2.setFont(font);
+
+            // Element labels
+            g.setColor(colors[4]);
+            for (Element e : Element.getElements()) {
+                g2.drawString(String.valueOf(e.getIndex()),
+                        e.getX() - g2.getFontMetrics().stringWidth(String.valueOf(e.getIndex())) / 2f
+                        ,Math.round(e.getY()-RADIUS_OF_ELEMENT - g2.getFontMetrics().getHeight()/4f )  + g2.getFontMetrics().getHeight()/4f);
+            }
+
+            //cost labels
+            font = new Font("Lato", Font.PLAIN, 20);
+            g2.setColor(colors[3]);
+            g2.setFont(font);
+            for (Element e : Element.getElements()) {
+                for (int i = 0; i < e.getPartnersCounter(); i++) {
+                    g2.drawString(String.valueOf(e.getCostById(i)),
+                            (e.getPartnerById(i).getX() + e.getX()) / 2,
+                            (e.getPartnerById(i).getY() + e.getY()) / 2
+                    );
+                }
+            }
+
 
 
 
@@ -69,10 +99,5 @@ public class MyFrame extends JFrame{
     public int getRadiusOfMap() {
         return radiusOfMap;
     }
-    //        public static Element getElementByIndex(int index){
-//            if(index>= W15.W15_7.MyFrame.LENGTH)
-//                return null;
-//            return elements[index];
-//        }
 
 }
