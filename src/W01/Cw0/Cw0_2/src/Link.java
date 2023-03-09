@@ -6,16 +6,11 @@ public class Link {
     private Link(Element elementLeft, Element elementRight){
         this.elements[0]=elementLeft;
         this.elements[1]=elementRight;
-        this.cost= (int) Math.round(Math.random()*100);
+        this.cost= (int) Math.round(1+Math.random()*99);
 
         if(Math.random()>0.6)
             this.callConnectionAdd();
     }
-
-
-
-
-
     public static void setLinks(int count){
         links = new Link[calculateLinks(count)]; //Array with all possible Links
         int iL=0;
@@ -29,16 +24,12 @@ public class Link {
             new Link(Element.getElementById(iL),Element.getElementById(iR));
             iR++;
         }
-
-
-
     }
     private static int calculateLinks(int count){
         if(count > 1)
             return count-1+calculateLinks(count-1);
         return 0;
     }
-
     public static Link[] getLinks() {
         return links;
     }

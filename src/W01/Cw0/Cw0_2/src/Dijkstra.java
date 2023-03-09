@@ -7,6 +7,7 @@ public class Dijkstra {
     private static Element from;
     private static Element to;
     private static MyList stack;
+    private static boolean done = false;
 
     public static void set(Element from, Element to){
         costToIndex=new int[Element.getElementsLength()];
@@ -25,55 +26,26 @@ public class Dijkstra {
         //set connection to staring object as 0
         costToIndex[tmp.getIndex()]=0;
         pathToIndex[tmp.getIndex()].pushBot(tmp);
-
-
-        //todo
-        //może da sie z tego do while
         while (!stack.isEmpty()){
-            stack.sout();
             tmp = stack.popTop();
-            System.out.println("Zmieniono tmp na: " + tmp.getIndex());
-            System.out.println("Obecna droga do tmp to: ");
-            pathToIndex[tmp.getIndex()].sout();
-            System.out.println();
-
-
             for (int i = 0; i < tmp.getPartnersCounter(); i++) {
-                System.out.println();
-                System.out.println("====");
-                System.out.println("Tmp to: " + tmp.getIndex());
-                System.out.println();
                 if(costToIndex[tmp.getPartnerIndexById(i)] >
                         costToIndex[tmp.getIndex()] + tmp.getCostById(i)
                 ){
-                    System.out.println("Znaleziono tańszą drogę z " +tmp.getIndex()+" do "+tmp.getPartnerIndexById(i));
-                    System.out.println("Kosztotwała: "+costToIndex[tmp.getPartnerIndexById(i)]+" a teraz jest: "+(costToIndex[tmp.getIndex()] + tmp.getCostById(i)));
-
-
+                    //cheaper way to partner Found.
                     pathToIndex[tmp.getPartnerIndexById(i)].clone(pathToIndex[tmp.getIndex()]);
                     pathToIndex[tmp.getPartnerIndexById(i)].pushBot(tmp.getPartnerById(i));
                     costToIndex[tmp.getPartnerIndexById(i)] = costToIndex[tmp.getIndex()] + tmp.getCostById(i);
-
                     if(!stack.isElementInList(tmp.getPartnerById(i))) {
                         stack.pushBot(tmp.getPartnerById(i));
-                        System.out.println("Do stosu dodano: "+tmp.getPartnerIndexById(i));
                     }
-//                    stack.sout();
-
-                } else {
-                    System.out.println("Droga jest droższa z: " +tmp.getIndex()+" do "+tmp.getPartnerIndexById(i));
-                    System.out.println("Kosztuje: "+(costToIndex[tmp.getIndex()] + tmp.getCostById(i))+" a najtańsza znaleziona to: "+costToIndex[tmp.getPartnerIndexById(i)]);
                 }
-
-
-                System.out.println("koniec fori");
             }
-            System.out.println("duzyWhile");
         }
-        System.out.println("wyszedlem z whole!!!!");
-
-
-
+        System.out.println("Lowest found cost: ");
+        System.out.println(Dijkstra.getLowestCostToTarget());
+        done = true;
+        MyFrame.myFrame.repaint(300);
     }
     public static void sout(){
         for (int i = 0; i < costToIndex.length; i++) {
@@ -84,7 +56,13 @@ public class Dijkstra {
         pathToIndex[to.getIndex()].sout();
     }
 
-
-
-
+    public static MyList getPathToTarget() {
+        return pathToIndex[to.getIndex()];
+    }
+    public static boolean isDone() {
+        return done;
+    }
+    public static int getLowestCostToTarget(){
+        return costToIndex[to.getIndex()];
+    }
 }

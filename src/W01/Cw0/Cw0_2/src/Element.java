@@ -7,8 +7,6 @@ public class Element {
     private Element[] partnersLinked;
     private int[] cost;
     private int partnersCounter =0;
-
-
     private Element(){
         this.index = Element.creationCounter++;
         this.alfa = (-0.5)*Math.PI +(2d*creationCounter*Math.PI/elements.length);
@@ -23,10 +21,6 @@ public class Element {
             System.out.println("\t"+ partnersLinked[i].getIndex()+", cost: "+cost[i]);
         }
     }
-
-
-
-
 
     public static void setElements(int length) {
         elements = new Element[length];
@@ -75,11 +69,13 @@ public class Element {
     public Element getPartnerById(int index){
         return this.partnersLinked[index];
     }
+
+    /**
+     * returns ID of partner (The private final index parameter)
+     * by index in partners linked array.
+     */
     public int getPartnerIndexById(int input){
         return getPartnerById(input).getIndex();
-
-        //returnes ID of partner (The private final index parameter)
-        //by index in partners linked array.
     }
 
     public int getCostById(int index) {

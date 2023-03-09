@@ -4,8 +4,8 @@ import java.awt.*;
 
 public class MyFrame extends JFrame{
         private static final int SIZE = 1000;
-        private static final int RADIUS_OF_ELEMENT = (SIZE)/20;
-        private static final int RADIUS_OF_SMALL = (SIZE)/150;
+        private static int radiusOfElement;
+        private static int radiusOfSmall;
         public static MyFrame myFrame;
         private static final Color[] colors = {
                 Color.decode("#264653"),
@@ -16,7 +16,6 @@ public class MyFrame extends JFrame{
                 Color.decode("#ae2012"),
                 Color.decode("#9b2226"),
         };
-
         private int radiusOfMap;
         MyFrame(){
             super("Dijkstra");
@@ -30,6 +29,8 @@ public class MyFrame extends JFrame{
         }
         public void paint (Graphics g){
             setRadiusOfMap(this);
+            radiusOfElement = (this.radiusOfMap)/8;
+            radiusOfSmall = (this.radiusOfMap)/80;
             Graphics2D g2 = (Graphics2D) g;
             RenderingHints rhints = g2.getRenderingHints();
             boolean antialiasOn = rhints.containsValue(RenderingHints.VALUE_ANTIALIAS_ON);
@@ -45,13 +46,13 @@ public class MyFrame extends JFrame{
 
             //element circles
             for (Element e : Element.getElements()) {
-                fillRing(g,e.getX(),e.getY(),RADIUS_OF_ELEMENT,4);
+                fillRing(g,e.getX(),e.getY(), radiusOfElement,4);
             }
 
             //connections
             for (Element elementBase : Element.getElements()) {
                 for (int i = 0; i < elementBase.getPartnersCounter(); i++) {
-                    g.fillArc(elementBase.getPartnerById(i).getX() - RADIUS_OF_SMALL ,elementBase.getPartnerById(i).getY()-RADIUS_OF_SMALL,RADIUS_OF_SMALL*2,RADIUS_OF_SMALL*2,0,360);
+                    g.fillArc(elementBase.getPartnerById(i).getX() - radiusOfSmall,elementBase.getPartnerById(i).getY()- radiusOfSmall, radiusOfSmall *2, radiusOfSmall *2,0,360);
                     g2.drawLine(elementBase.getX(),elementBase.getY(),elementBase.getPartnerById(i).getX(),elementBase.getPartnerById(i).getY());
                 }
             }
@@ -63,7 +64,7 @@ public class MyFrame extends JFrame{
             for (Element e : Element.getElements()) {
                 g2.drawString(String.valueOf(e.getIndex()),
                         e.getX() - g2.getFontMetrics().stringWidth(String.valueOf(e.getIndex())) / 2f
-                        ,Math.round(e.getY()-RADIUS_OF_ELEMENT - g2.getFontMetrics().getHeight()/4f )  + g2.getFontMetrics().getHeight()/4f);
+                        ,Math.round(e.getY()- radiusOfElement - g2.getFontMetrics().getHeight()/4f )  + g2.getFontMetrics().getHeight()/4f);
             }
 
             //cost labels
@@ -83,9 +84,29 @@ public class MyFrame extends JFrame{
             }
 
 
+            //draw found path
+            if(!Dijkstra.isDone())
+                return;
+
+
+            g2.setStroke(new BasicStroke(4));
+            g2.setColor(colors[5]);
+            MyList found = new MyList();
+            found.clone(Dijkstra.getPathToTarget());
+            Element tmpFrom;
+            Element tmpTo = found.popTop();
+            int sum=0;
+            do {
+                tmpFrom = tmpTo;
+                tmpTo = found.popTop();
+                g2.drawLine(tmpFrom.getX(), tmpFrom.getY(), tmpTo.getX(), tmpTo.getY());
+            } while (!found.isEmpty());
+
+
 
 
         }
+
         private static void fillRing(Graphics g,int x, int y, int radius, int thickness){
             Color tmpColor = g.getColor();
             g.fillArc(x-radius,y-radius,2*radius,2*radius,0,360);
