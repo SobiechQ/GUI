@@ -1,3 +1,5 @@
+package W01.Cw0;
+
 import java.util.Arrays;
 
 public class Dijkstra {

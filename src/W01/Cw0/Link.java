@@ -1,3 +1,5 @@
+package W01.Cw0;
+
 public class Link {
     private static Link[] links; //All possible links
     private final Element[] elements = new Element[2];

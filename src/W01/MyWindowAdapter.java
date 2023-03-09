@@ -1,4 +1,4 @@
-package W01.Cw0;
+package W01;
 
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;

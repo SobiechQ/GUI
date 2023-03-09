@@ -1,3 +1,5 @@
+package W01.Cw0;
+
 public class Element {
     private static Element[] elements;
     private static int creationCounter=0;

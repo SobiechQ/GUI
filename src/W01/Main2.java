@@ -1,5 +1,4 @@
 package W01;
-import W01.Cw0.MyWindowAdapter;
 
 import java.awt.*;
 import java.awt.event.WindowAdapter;

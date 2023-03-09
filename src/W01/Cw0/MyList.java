@@ -1,3 +1,5 @@
+package W01.Cw0;
+
 public class MyList{
     private Element head;
     private MyList next;
