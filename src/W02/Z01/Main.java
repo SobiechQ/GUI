@@ -1,6 +1,5 @@
 package W02.Z01;
 
-import W02.USB;
 
 import java.lang.annotation.Annotation;
 
