@@ -1,3 +1,4 @@
+package W02.Z05;
 
 public class Main {
     public static void main(String[] args) {

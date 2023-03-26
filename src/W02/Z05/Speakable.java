@@ -1,3 +1,5 @@
+package W02.Z05;
+
 public interface Speakable {
     String speak();
     static Speakable naglosniej(Speakable[] input){

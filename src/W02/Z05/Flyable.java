@@ -1,3 +1,5 @@
+package W02.Z05;
+
 public interface Flyable {
     String drive();
     double distance();
