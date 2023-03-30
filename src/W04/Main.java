@@ -21,7 +21,7 @@ public class Main {
         }
         System.out.println(mas.pop());
         //aby trzymac elementy w własniej strukturze
-        //dobrą praktyką jest zaimplementować comparator lub comparable, hashcode, equals, bezagrumentowy hashcode, iterable, serializable
+        //dobrą praktyką jest zaimplementować comparator lub comparable, hashcode, equals, bezagrumentowy konstruktor, hashcode, iterable, serializable
 
         //istnieje opcja automatycznego tworzenia equals
         //strumien nie przechowuj eelementów na których działa
