@@ -1,29 +1,40 @@
 package W03.Z02;
+
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        class Test{
-            private static <T,R> void transform(T[] in, R[] out, Transform<T,R> transform){
-                if(in.length != out.length)
-                    throw new IllegalArgumentException("Arrays have to have same length");
-                for (int i = 0; i < in.length; i++)
-                    out[i]=transform.apply(in[i]);
-                System.out.println(Arrays.toString(out));
-            }
-        }
+        List<Osoba> lista = Arrays.asList(
+                new Osoba("Anna", 23),
+                new Osoba("Maria", 22),
+                new Osoba("Anna", 20),
+                new Osoba("Wojciech", 21)
+        );
+        Collections.sort(lista, new KomparatorOsob(Kryterium.IMIE));
+        System.out.println(lista);
 
-        String[] sin = {"Alice", "Sue", "Janet", "Bea"};
-        System.out.println(Arrays.toString(sin) + '\n');
-        class StrToInt implements Transform<String, Integer>{
+        // sortowanie według podanego komparatora (po wieku)
+        Collections.sort(lista, new KomparatorOsob(Kryterium.WIEK));
+
+        // lub zamiast komparatora "po wieku" napisać wyrażenie lambda w miejscu /* ... */
+        /*Collections.sort(lista, new Comparator<Osoba>() {
             @Override
-            public Integer apply(String toBeTransformed) {
-                return toBeTransformed.length();
+            public int compare(Osoba o1, Osoba o2) {
+                return o1.getWiek() - o2.getWiek();
             }
-        }
-        Test.transform(sin, new Integer[sin.length], new StrToInt());
-        Test.transform(sin, new Character[sin.length], (String s) -> s.charAt(0));
-        Test.transform(sin, new String[sin.length], String::toUpperCase);
+        });
+        */
+        Collections.sort(lista, (o1, o2) -> o1.getWiek() - o2.getWiek());
+
+
+        System.out.println(lista);
+
+        // sortowanie według porządku naturalnego określonego w klasie Osoba
+        Collections.sort(lista);
+        System.out.println(lista);
 
     }
 }

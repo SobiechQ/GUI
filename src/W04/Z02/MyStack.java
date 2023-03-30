@@ -1,10 +1,6 @@
 package W04.Z02;
-
 import java.util.EmptyStackException;
 import java.util.Iterator;
-import java.util.Spliterator;
-import java.util.function.Consumer;
-
 public class MyStack<T> implements Iterable{
     private Element<T> head;
     public void push(T input){
@@ -25,20 +21,26 @@ public class MyStack<T> implements Iterable{
         return tmp.getIt();
     }
 
+    public Element<T> getHead() {
+        return head;
+    }
+
     @Override
     public Iterator iterator() {
         return new Iterator() {
+            private Element tmp = getHead();
+
             @Override
             public boolean hasNext() {
-                return false;
+                return tmp!=null;
             }
 
             @Override
             public Object next() {
-                return null;
+                Element prev = tmp;
+                tmp = tmp.getNext();
+                return prev;
             }
         };
     }
-
-
 }

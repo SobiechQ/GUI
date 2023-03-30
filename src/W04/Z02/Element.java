@@ -23,4 +23,9 @@ public class Element <T>{
     public void setNext(Element next) {
         this.next = next;
     }
+
+    @Override
+    public String toString() {
+        return it.toString();
+    }
 }
