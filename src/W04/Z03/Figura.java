@@ -6,7 +6,7 @@ public abstract class Figura implements Paintable, Repaintable{
     private int x;
     private int y;
     private int id;
-    private Graphics graphics = MyFrame.mf.getGraphics().create();
+    private Graphics graphics = MyFrame.self.getGraphics().create();
     private static int count;
 
     public Figura(int x, int y) {
