@@ -6,7 +6,7 @@ public class Main {
     public static void main(String[] args) {
         new MyFrame();
         ArrayList<Figura> figuras = new ArrayList<>();
-        figuras.add(new Circle(100,130,20));
+        figuras.add(new Circle(50,300,20));
 //        figuras.add(new Circle(70,350,20));
 //        figuras.add(new Circle(480,500,40));
 //        figuras.add(new Circle(380,200,5));

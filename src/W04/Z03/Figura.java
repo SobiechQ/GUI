@@ -3,8 +3,8 @@ package W04.Z03;
 import java.awt.*;
 
 public abstract class Figura implements Paintable, Repaintable{
-    private int x;
-    private int y;
+    private double x;
+    private double y;
     private int id;
     private Graphics graphics = MyFrame.self.getGraphics().create();
     private static int count;
@@ -25,19 +25,19 @@ public abstract class Figura implements Paintable, Repaintable{
     public int getId() {
         return id;
     }
-    public void setX(int x) {
+    public void setX(double x) {
         this.x = x;
     }
 
-    public void setY(int y) {
+    public void setY(double y) {
         this.y = y;
     }
 
-    public int getX() {
+    public double getX() {
         return x;
     }
 
-    public int getY() {
+    public double getY() {
         return y;
     }
 
