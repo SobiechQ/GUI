@@ -1,8 +1,9 @@
-import Z02.Osoba;
+package W04.Z07;
 
 import java.util.EmptyStackException;
 import java.util.Iterator;
 public class MyStack<T> implements Iterable<Element>{
+
     private Element<T> head;
     public void push(T input){
         if(this.head == null){

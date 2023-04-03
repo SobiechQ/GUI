@@ -1,3 +1,5 @@
+package W04.Z07;
+
 public class Element <T>{
     private T it;
     private Element next;
