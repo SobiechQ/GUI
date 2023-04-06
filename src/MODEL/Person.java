@@ -3,7 +3,7 @@ package MODEL;
 public class Person implements Comparable<Person>{
     private static final String[] firstNames = {"Kaja", "Lena", "Antoni", "Hanna", "Jakub", "Julia", "Aleksander", "Zofia", "Michał", "Amelia", "Filip", "Maja", "Stanisław", "Natalia", "Adam", "Oliwia", "Franciszek", "Marcelina", "Mateusz", "Laura", "Wiktor", "Kinga", "Iga", "Nikodem", "Weronika", "Ignacy", "Nina", "Adrian", "Emilia", "Krzysztof", "Alicja"};
     private static final String[] secondNames = {"Nowak", "Kowalski", "Wiśniewski", "Dąbrowski", "Lewandowski", "Wójcik", "Kamiński", "Kowalczyk", "Zieliński", "Szymański", "Woźniak", "Kozłowski", "Jankowski", "Mazur", "Wojciechowski", "Kwiatkowski", "Kaczmarek", "Krawczyk", "Piotrowski", "Grabowski", "Nowakowski", "Pawłowski", "Michalski", "Nowicki", "Adamczyk", "Dudek", "Zając", "Wieczorek", "Jabłoński", "Krupa", "Sikora", "Olszewski"};
-    private static final String[] favMusics = {"Rock", "Pop", "R&B", "Hip-Hop", "Classical", "Jazz", "Reggae"};
+    private static final String[] favMusics = {"Rock", "Pop", "R&B", "Hip-Hop", "Classical", "Jazz", "Reggae", "Funk"};
 
     @Override
     public int compareTo(Person o) {
