@@ -19,7 +19,7 @@ public class Main {
             @Override
             public Iterator<V> iterator() {
                 return new Iterator<>() {
-                    private ArrayList<K> keys = new ArrayList<>(keySet());
+                    private final ArrayList<K> keys = new ArrayList<>(keySet());
                     private int keyIndex = 0;
                     @Override
                     public boolean hasNext() {
