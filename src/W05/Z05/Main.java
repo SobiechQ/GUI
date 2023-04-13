@@ -15,6 +15,7 @@ public class Main {
                 "salon A", "Ford", "105000",
                 "salon A", "Renault", "75000"
         };
+
         LinkedList<String> queue = new LinkedList<>();
         HashMap<String, LinkedList<Samochod>> hashMap = new HashMap<>();
         Arrays.stream(arr)
@@ -24,7 +25,7 @@ public class Main {
                 })
                 .map(stack -> new Samochod(queue.pop(), queue.pop(), queue.pop()))
                 .forEach(samochod -> {
-                    hashMap.computeIfAbsent(samochod.getSalon(), k -> new LinkedList<>());
+                    hashMap.putIfAbsent(samochod.getSalon(),new LinkedList<>());
                     hashMap.get(samochod.getSalon()).add(samochod);
                 });
 
