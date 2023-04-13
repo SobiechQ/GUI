@@ -16,6 +16,7 @@ public class Main {
                 .forEach(System.out::println);
         String[] input = {"Jeden", "Dwa", "Trzy", "Cztery"};
         Stream.of(input)
+                .map(String::toUpperCase)
                 .map(s->{
                     StringBuilder output = new StringBuilder();
                     for (int i = s.length()-1; i >= 0; i--)

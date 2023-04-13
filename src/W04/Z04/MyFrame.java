@@ -44,15 +44,8 @@ public class MyFrame extends Frame {
             //create buffor image
             buffor = (BufferedImage) createImage(this.getWidth(), this.getHeight());
             this.paintFromBuffor((Graphics2D) buffor.getGraphics());
-
-
             //draw only after all frames have been sequenced
             this.getGraphics().drawImage(buffor, 0, 0, this);
-
-
-
-
-
             try {
                 Thread.sleep(1000/fps);
             } catch (InterruptedException e) {
