@@ -10,9 +10,7 @@ public class PageEndJPanel extends JPanel {
         MyJButton(String name){
             this.setText(name);
             this.setPreferredSize(new Dimension(100,35));
-            this.addActionListener(e -> {
-                EventMessage.fireMessageListeners(new EventMessage(this, this.getText()));
-            });
+            this.addActionListener(e -> EventMessage.fireMessageListeners(new EventMessage(this, this.getText())));
         }
     }
 
