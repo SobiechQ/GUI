@@ -1,6 +1,7 @@
 package W07.Z04.Center;
-import W07.Z04.MyEventListener.EventMessage;
-import W07.Z04.MyEventListener.MessageListener;
+import W07.Z04.MessageListener.EventMessage;
+import W07.Z04.MessageListener.EventMessages;
+import W07.Z04.MessageListener.MessageListener;
 import javax.swing.*;
 import java.awt.*;
 import java.util.Stack;
@@ -20,10 +21,9 @@ public class GridJPanel extends JPanel implements MessageListener{
     }
     @Override
     public void fireMessage(EventMessage eventMessage) {
-        System.out.println(eventMessage);
-        if (eventMessage.getMessage().equals("Dodaj"))
+        if (eventMessage.getMessage().equals(EventMessages.ADD_NEW_TICKET))
             this.ticketJPanels.add(new TicketJPanel());
-        if (this.ticketJPanels.size()>0 && eventMessage.getMessage().equals("Usun"))
+        if (this.ticketJPanels.size()>0 && eventMessage.getMessage().equals(EventMessages.REMOVE_TICKET))
             this.ticketJPanels.pop();
         this.repaintAllTickets();
     }
@@ -32,7 +32,7 @@ public class GridJPanel extends JPanel implements MessageListener{
         this.gridLayout.setRows(this.ticketJPanels.size());
         for (TicketJPanel ticketJPanel : ticketJPanels)
             this.add(ticketJPanel);
-        this.revalidate();
         this.repaint();
+        this.revalidate();
     }
 }

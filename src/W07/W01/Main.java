@@ -1,4 +1,4 @@
-package W07;
+package W07.W01;
 
 import javax.swing.*;
 import java.awt.*;
