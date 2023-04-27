@@ -1,6 +1,6 @@
 package W07.Z05;
 
-import org.jetbrains.annotations.NotNull;
+//import org.jetbrains.annotations.NotNull;
 
 import java.util.HashSet;
 import java.util.Iterator;
@@ -26,7 +26,6 @@ public class Letters implements Iterable<Thread>{
     }
 
 
-    @NotNull
     @Override
     public Iterator<Thread> iterator() {
         return charThreadSet.iterator();
