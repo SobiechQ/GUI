@@ -6,6 +6,7 @@ import java.util.Objects;
 
 public class Klient {
     private final String imie;
+    private ListaZyczen listaZyczen;
     private int stanKonta;
     private boolean czyMaAbonament;
 
@@ -17,7 +18,6 @@ public class Klient {
     public Klient(String imie, int stanKonta){
         this(imie, stanKonta, false);
     }
-    private ListaZyczen listaZyczen;
     public ListaZyczen pobierzListeZyczen(){
         if (this.listaZyczen == null)
             this.listaZyczen = new ListaZyczen();
@@ -29,6 +29,9 @@ public class Klient {
 
     public String getImie() {
         return imie;
+    }
+    public void przepakuj(Koszyk koszyk){
+        koszyk.przepakuj(this);
     }
 
     public int getStanKonta() {
