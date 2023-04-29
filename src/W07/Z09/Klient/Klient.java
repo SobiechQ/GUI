@@ -31,7 +31,7 @@ public class Klient {
         return imie;
     }
     public void przepakuj(Koszyk koszyk){
-        koszyk.przepakuj(this);
+        koszyk.przepakuj();
     }
 
     public int getStanKonta() {

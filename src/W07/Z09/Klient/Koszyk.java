@@ -1,5 +1,7 @@
 package W07.Z09.Klient;
 
+import W07.Z09.Cennik.Cennik;
+import W07.Z09.Cennik.CennikRecord;
 import W07.Z09.Gatunki.Film;
 
 import java.util.ArrayList;
@@ -9,19 +11,23 @@ public class Koszyk extends ArrayList<Film>{
     public Koszyk(Klient wlasciciel) {
         this.wlasciciel = wlasciciel;
     }
-    public void przepakuj(Klient klient){
-        for (Film film : klient.pobierzListeZyczen()) {
+
+    /**
+     * Dodaje do kosztyka tylko te elementy, na które stać i do których ma dostęp klient.
+     */
+    public void przepakuj(){
+        for (Film film : this.wlasciciel.pobierzListeZyczen()) {
             this.add(film);
-            klient.setStanKonta(klient.getStanKonta() - );
+            this.wlasciciel.setStanKonta(this.wlasciciel.getStanKonta() - this.kosztFilmuDlaKlienta(film));
         }
     }
-    private int kosztFilmuDlaKlienta(Klient klient, Film film){
-        int koszt;
-        if (klient.isCzyMaAbonament()){
-//            koszt =
-        //todo
-
-        }
+    
+    /**
+     * Róźni klienci płacą różne ceny za ten sam film.
+     */
+    private int kosztFilmuDlaKlienta(Film film){
+        int koszt = 0;
+        int ileWPakiecie = film.getMaksymalnaLiczbaUrzadzen() - Cennik.pobierzCennik().getRecordByKey(film.getTytul()).maksLiczbUrzadzen();
 
 
 

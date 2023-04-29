@@ -62,4 +62,7 @@ public class Cennik {
     public Map<String,CennikRecord> getCennikRecords() {
         return Cennik.pobierzCennik().getCennikRecords();
     }
+    public CennikRecord getRecordByKey(String key){
+        return Cennik.pobierzCennik().getCennikRecords().get(key);
+    }
 }
