@@ -1,12 +1,14 @@
 package W07.Z09.Cennik;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Cennik {
     private static Cennik self;
-    private final List<CennikRecord> cennikRecords;
-    private Cennik(List<CennikRecord> cennikRecords){
+    private final Map<String,CennikRecord> cennikRecords;
+    private Cennik(Map<String,CennikRecord> cennikRecords){
         this.cennikRecords = cennikRecords;
     }
 
@@ -15,15 +17,16 @@ public class Cennik {
      */
     public static Cennik pobierzCennik(){
         if (Cennik.self == null)
-            Cennik.self = new Cennik(new ArrayList<>());
+            Cennik.self = new Cennik(new HashMap<>());
         return Cennik.self;
     }
 
     /**
      * @param cennikRecord wprowadza rekord do listy cennika
      */
-    public void dodaj(CennikRecord cennikRecord){
-        Cennik.pobierzCennik().cennikRecords.add(cennikRecord);
+    public void dodaj(CennikRecord cennikRecord) {
+        Cennik.pobierzCennik().cennikRecords.putIfAbsent(cennikRecord.tytul(), cennikRecord);
+//        Cennik.pobierzCennik().cennikRecords.add(cennikRecord);
     }
     /**
      * Tylko dla klientów z abonamentem. Darmowy dostęp.
@@ -56,8 +59,7 @@ public class Cennik {
         Cennik.pobierzCennik().dodaj(new CennikRecord(gatunek, tytul, cenaPakietBezAbo, cenaBezPakietBezAbo, maksLiczbUrzadzen, cenaAbo));
     }
 
-
-
-
-
+    public Map<String,CennikRecord> getCennikRecords() {
+        return Cennik.pobierzCennik().getCennikRecords();
+    }
 }

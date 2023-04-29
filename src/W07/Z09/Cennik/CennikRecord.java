@@ -39,4 +39,8 @@ public record CennikRecord(String gatunek, String tytul,
     public CennikRecord(String gatunek, String tytul) {
         this(gatunek, tytul, 0, 0, Integer.MAX_VALUE, 0, 0, false);
     }
+
+    public CennikRecord(){
+        this(null, null, 0,0,Integer.MAX_VALUE, 0,0, false);
+    }
 }
