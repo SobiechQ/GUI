@@ -1,8 +1,8 @@
 package W07.Z09.Cennik;
 
-import java.util.ArrayList;
+import W07.Z09.Gatunki.Film;
+
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class Cennik {
@@ -60,9 +60,9 @@ public class Cennik {
     }
 
     public Map<String,CennikRecord> getCennikRecords() {
-        return Cennik.pobierzCennik().getCennikRecords();
+        return Cennik.pobierzCennik().cennikRecords;
     }
-    public CennikRecord getRecordByKey(String key){
-        return Cennik.pobierzCennik().getCennikRecords().get(key);
+    public CennikRecord getRecordByKeyFilm(Film key){
+        return Cennik.pobierzCennik().getCennikRecords().get(key.getTytul());
     }
 }
