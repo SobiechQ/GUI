@@ -4,6 +4,7 @@ import W07.Z09.Gatunki.Film;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 public class Cennik {
     private static Cennik self;
@@ -22,7 +23,7 @@ public class Cennik {
     }
 
     /**
-     * @param cennikRecord wprowadza rekord do listy cennika
+     * @param cennikRecord wprowadza rekord do listy cennika. Indeksowana po tytułach a wartości to recordy clasy CennikRecord
      */
     public void dodaj(CennikRecord cennikRecord) {
         Cennik.pobierzCennik().cennikRecords.putIfAbsent(cennikRecord.tytul(), cennikRecord);
@@ -62,7 +63,12 @@ public class Cennik {
     public Map<String,CennikRecord> getCennikRecords() {
         return Cennik.pobierzCennik().cennikRecords;
     }
-    public CennikRecord getRecordByKeyFilm(Film key){
-        return Cennik.pobierzCennik().getCennikRecords().get(key.getTytul());
+
+    /**
+     * @param key Szukanie w mapie po obiekcie Film, a nie po tytule filmu (w Cenniku kluczem dla rekordu jest String tytuł filmu)
+     * @return Optional object rekordu cennika. Jeżeli filmu nie ma w cenniku optional będzie pusty. Jeżeli jest w cenniku optional będzie zawierał obiekt rekordu tego cennika
+     */
+    public Optional<CennikRecord> getRecordByKeyFilm(Film key){
+        return Optional.ofNullable(Cennik.pobierzCennik().getCennikRecords().getOrDefault(key.getTytul(), null));
     }
 }

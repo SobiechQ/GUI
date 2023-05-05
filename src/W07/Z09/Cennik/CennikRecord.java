@@ -19,7 +19,7 @@ public record CennikRecord(String gatunek, String tytul,
      * @param cenaBezPakiet Cena po przekroczeniu limitu dla każdego klienta (niezaleznie od tego czy posiada abonament czy nie)
      * @param maksLiczbUrzadzen Po ilu urzadzeniach zmiana ceny dla każdego klienta (niezaleznie od tego czy posiada abonament czy nie)
      */
-    public CennikRecord(String gatunek, String tytul, int cenaPakiet, int cenaBezPakiet, int maksLiczbUrzadzen) {
+    public CennikRecord(String gatunek, String tytul,int maksLiczbUrzadzen, int cenaPakiet, int cenaBezPakiet) {
         this(gatunek, tytul, cenaPakiet, cenaBezPakiet, maksLiczbUrzadzen, cenaPakiet, cenaBezPakiet, true);
     }
 

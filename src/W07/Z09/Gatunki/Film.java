@@ -1,5 +1,6 @@
 package W07.Z09.Gatunki;
 
+
 import java.util.Objects;
 
 public abstract class Film {
@@ -34,9 +35,10 @@ public abstract class Film {
 
     @Override
     public String toString() {
-        return this.getClass() + " {" +
+        return this.getClass().getSimpleName() + " {" +
                 "tytul='" + tytul + '\'' +
                 ", maksymalnaLiczbaUrzadzen=" + maksymalnaLiczbaUrzadzen +
                 '}';
     }
+
 }
