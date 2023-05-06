@@ -3,26 +3,32 @@ package W07.Z09.Klient;
 import W07.Z09.Cennik.Cennik;
 import W07.Z09.Gatunki.Film;
 
-import java.util.Iterator;
-import java.util.Objects;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.*;
 
 public class Koszyk implements Iterable<Film>{
     private final Klient wlasciciel;
     private final Set<Film> films;
+
     public Koszyk(Klient wlasciciel) {
+        this(wlasciciel, new HashSet<>());
+    }
+    public Koszyk(Klient wlasciciel, Set<Film> films) {
         this.wlasciciel = wlasciciel;
         this.wlasciciel.setKoszyk(this);
-        //Tree set trzyma filmy posortowane w kolejnosci od najtańszych.
-        //pozwala to w momencie płacenia na dodanie najtańszych filmów jako pierwszych
-        this.films = new TreeSet<>((f1, f2)->{
+
+
+        //poprzez dodadnie do tree set ustawiam że wszystkie podane filmy będą sortowane w danej kolejności.
+        //delegowanie konstruktora pozwala tworzyć puste koszyki, oraz nowe koszyki inicjowane już jakąś (nieposortowaną wcześniej) kolekcją
+        //która jest sortowana przy tworzeniu koszyka.
+        TreeSet<Film> filmTreeSet = new TreeSet<>((o1, o2) -> {
             try {
-                return kosztFilmuDlaKlienta(f1) - kosztFilmuDlaKlienta(f2);
+                return kosztFilmuDlaKlienta(o1) - kosztFilmuDlaKlienta(o2);
             } catch (KoszykException e) {
                 throw new RuntimeException(e);
             }
         });
+        filmTreeSet.addAll(films);
+        this.films = filmTreeSet;
     }
 
     /**

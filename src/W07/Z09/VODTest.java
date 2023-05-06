@@ -13,7 +13,6 @@ public class VODTest {
         AtomicInteger cena = new AtomicInteger();
         k.getFilms().stream()
                 .filter(film -> film.getClass().getSimpleName().equalsIgnoreCase(typ))
-                .peek(System.out::println)
                 .forEach(film -> {
                     try {
                         cena.addAndGet(k.kosztFilmuDlaKlienta(film));

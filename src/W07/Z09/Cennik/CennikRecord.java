@@ -13,14 +13,14 @@ public record CennikRecord(String gatunek, String tytul,
         this(gatunek, tytul, cenaPakietBezAbo, cenaBezPakietBezAbo, maksLiczbUrzadzen, cenaAbo, cenaAbo, true);
     }
 
-
+        //todo naprawić javadoc
     /**
      * @param cenaPakiet Cena przed przekroczeniem limitu dla kazdego klienta (niezaleznie od tego czy posiada abonament czy nie)
      * @param cenaBezPakiet Cena po przekroczeniu limitu dla każdego klienta (niezaleznie od tego czy posiada abonament czy nie)
      * @param maksLiczbUrzadzen Po ilu urzadzeniach zmiana ceny dla każdego klienta (niezaleznie od tego czy posiada abonament czy nie)
      */
     public CennikRecord(String gatunek, String tytul,int maksLiczbUrzadzen, int cenaPakiet, int cenaBezPakiet) {
-        this(gatunek, tytul, cenaPakiet, cenaBezPakiet, maksLiczbUrzadzen, cenaPakiet, cenaBezPakiet, true);
+        this(gatunek, tytul, cenaBezPakiet, cenaPakiet, maksLiczbUrzadzen, cenaBezPakiet, cenaPakiet, true);
     }
 
 

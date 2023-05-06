@@ -2,19 +2,16 @@ package W07.Z09.Klient;
 
 import W07.Z09.Gatunki.Film;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 public class Klient {
     private final String imie;
     private ListaZyczen listaZyczen;
     private Koszyk koszyk;
-    private int stanKonta;
+    private double stanKonta;
     private boolean czyMaAbonament;
 
-    public Klient(String imie, int stanKonta, boolean czyMaAbonament) {
+    public Klient(String imie, double stanKonta, boolean czyMaAbonament) {
         this.imie = imie;
         this.stanKonta = stanKonta;
         this.czyMaAbonament = czyMaAbonament;
@@ -42,11 +39,11 @@ public class Klient {
         koszyk.przepakuj();
     }
 
-    public int getStanKonta() {
+    public double getStanKonta() {
         return stanKonta;
     }
 
-    public void setStanKonta(int stanKonta) {
+    public void setStanKonta(double stanKonta) {
         this.stanKonta = stanKonta;
     }
 
@@ -97,27 +94,28 @@ public class Klient {
         }
     }
 
-    public void zaplac(FormaPlatnosci formaPlatnosci, boolean czyAplikacjaSamaDolozy) {
-        //todo TEST THIS METHOD
-
-        //Iterowanie po kopi koszyka, aby uniknąć concurrent modification exception (Podczas iterowania usuwam z koszyka)
-        Set<Film> kopiaKoszyk = new HashSet<>(this.koszyk.getFilms());
-        for (Film film : kopiaKoszyk) {
+    public void zaplac(FormaPlatnosci formaPlatnosci, boolean czyAplikacjaSamaOdlozy) {
+        //Iterowanie po koszyku, aby uniknąć concurrent modification exception (Podczas iterowania usuwam z kopi koszyka)
+        List<Film> kopiaKoszyk = new ArrayList<>(this.koszyk.getFilms());
+        List<Film> kopiaListaZyczen = new ArrayList<>(this.listaZyczen.getFilms());
+        for (Film film : this.koszyk) {
                 try {
-                    if (this.koszyk.kosztFilmuDlaKlienta(film) > this.stanKonta)
-                        //Jeżeli koszy dla filmu przewyższa możliwości klienta to koniec płacenia.
-                        //Filmy są posortowane po cenie wiec jak nie stać go na film n to na film n+1 też go nie stać.
-                        return;
-                    this.stanKonta -= this.koszyk.kosztFilmuDlaKlienta(film);
-                    this.koszyk.getFilms().remove(film);
-                    this.listaZyczen.getFilms().remove(film);
+                    if ((formaPlatnosci.equals(FormaPlatnosci.KARTA) ?
+                            this.koszyk.kosztFilmuDlaKlienta(film)*1.01:this.koszyk.kosztFilmuDlaKlienta(film)) >
+                            this.stanKonta)
+                        //Nie stać na kolejny film wiec zaleznie od czyAplikacjaSamaOdlozy
+                        if (!czyAplikacjaSamaOdlozy)
+                            return;
+                            //koniec programu
+                    this.stanKonta -= formaPlatnosci.equals(FormaPlatnosci.KARTA) ? this.koszyk.kosztFilmuDlaKlienta(film)*1.01:this.koszyk.kosztFilmuDlaKlienta(film);
+                    kopiaKoszyk.remove(film);
+                    kopiaListaZyczen.remove(film);
                 } catch (KoszykException e) {
                     System.out.println(e.getMessage());
                 }
         }
-
-
     }
+
 
     public void setKoszyk(Koszyk koszyk) {
         this.koszyk = koszyk;
@@ -127,7 +125,7 @@ public class Klient {
         return this.koszyk;
     }
 
-    public int pobierzPortfel() {
-        return this.stanKonta;
+    public double pobierzPortfel() {
+        return this.getStanKonta();
     }
 }

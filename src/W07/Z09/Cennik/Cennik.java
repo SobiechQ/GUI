@@ -42,13 +42,14 @@ public class Cennik {
     public void dodaj(String gatunek, String tytul, int cenaBezAbo, int cenaAbo){
         Cennik.pobierzCennik().dodaj(new CennikRecord(gatunek, tytul,cenaBezAbo, cenaAbo));
     }
+    //todo naprawic javadoc!
     /**
      * @param cenaPakiet Cena przed przekroczeniem limitu dla kazdego klienta (niezaleznie od tego czy posiada abonament czy nie)
      * @param cenaBezPakiet Cena po przekroczeniu limitu dla każdego klienta (niezaleznie od tego czy posiada abonament czy nie)
      * @param maksLiczbUrzadzen Po ilu urzadzeniach zmiana ceny dla każdego klienta (niezaleznie od tego czy posiada abonament czy nie)
      */
-    public void dodaj(String gatunek, String tytul, int cenaPakiet, int cenaBezPakiet, int maksLiczbUrzadzen){
-        Cennik.pobierzCennik().dodaj(new CennikRecord(gatunek, tytul, cenaPakiet, cenaBezPakiet, maksLiczbUrzadzen));
+    public void dodaj(String gatunek, String tytul, int maksLiczbUrzadzen, int cenaPakiet, int cenaBezPakiet){
+        Cennik.pobierzCennik().dodaj(new CennikRecord(gatunek, tytul, maksLiczbUrzadzen, cenaPakiet, cenaBezPakiet));
     }
     /**
      * @param cenaPakietBezAbo Cena przed przekroczeniem limitu urzadzen dla klientow bez abonamentu
@@ -71,4 +72,12 @@ public class Cennik {
     public Optional<CennikRecord> getRecordByKeyFilm(Film key){
         return Optional.ofNullable(Cennik.pobierzCennik().getCennikRecords().getOrDefault(key.getTytul(), null));
     }
+
+    @Override
+    public String toString() {
+        return "Cennik{" +
+                "cennikRecords=" + cennikRecords +
+                '}';
+    }
+
 }
