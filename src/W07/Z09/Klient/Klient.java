@@ -98,22 +98,29 @@ public class Klient {
         //Iterowanie po koszyku, aby uniknąć concurrent modification exception (Podczas iterowania usuwam z kopi koszyka)
         List<Film> kopiaKoszyk = new ArrayList<>(this.koszyk.getFilms());
         List<Film> kopiaListaZyczen = new ArrayList<>(this.listaZyczen.getFilms());
+        double kosztCalkowity = 0;
         for (Film film : this.koszyk) {
                 try {
                     if ((formaPlatnosci.equals(FormaPlatnosci.KARTA) ?
                             this.koszyk.kosztFilmuDlaKlienta(film)*1.01:this.koszyk.kosztFilmuDlaKlienta(film)) >
-                            this.stanKonta)
+                            this.stanKonta - kosztCalkowity) {
                         //Nie stać na kolejny film wiec zaleznie od czyAplikacjaSamaOdlozy
                         if (!czyAplikacjaSamaOdlozy)
+                            //koniec placenia. Nic sie nie dzieje zmiany nie są zapisane
                             return;
-                            //koniec programu
-                    this.stanKonta -= formaPlatnosci.equals(FormaPlatnosci.KARTA) ? this.koszyk.kosztFilmuDlaKlienta(film)*1.01:this.koszyk.kosztFilmuDlaKlienta(film);
+                        //wpp koniec iterowania po filmach i zmiany są zapisane
+                        break;
+                    }
+                    kosztCalkowity += formaPlatnosci.equals(FormaPlatnosci.KARTA) ? this.koszyk.kosztFilmuDlaKlienta(film)*1.01:this.koszyk.kosztFilmuDlaKlienta(film);
                     kopiaKoszyk.remove(film);
                     kopiaListaZyczen.remove(film);
                 } catch (KoszykException e) {
                     System.out.println(e.getMessage());
                 }
         }
+        this.koszyk = new Koszyk(this, kopiaKoszyk);
+        this.listaZyczen = new ListaZyczen(kopiaListaZyczen);
+        this.stanKonta -= kosztCalkowity;
     }
 
 

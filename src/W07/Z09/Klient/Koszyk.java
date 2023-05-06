@@ -10,9 +10,9 @@ public class Koszyk implements Iterable<Film>{
     private final Set<Film> films;
 
     public Koszyk(Klient wlasciciel) {
-        this(wlasciciel, new HashSet<>());
+        this(wlasciciel, new ArrayList<>());
     }
-    public Koszyk(Klient wlasciciel, Set<Film> films) {
+    public Koszyk(Klient wlasciciel, List<Film> films) {
         this.wlasciciel = wlasciciel;
         this.wlasciciel.setKoszyk(this);
 

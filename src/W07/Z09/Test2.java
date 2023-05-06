@@ -1,7 +1,7 @@
 package W07.Z09;
 
 import W07.Z09.Cennik.Cennik;
-import W07.Z09.Gatunki.*;
+import W07.Z09.Gatunki.Obyczaj;
 import W07.Z09.Klient.FormaPlatnosci;
 import W07.Z09.Klient.Klient;
 import W07.Z09.Klient.Koszyk;
@@ -49,14 +49,14 @@ public class Test2 {
         klient.dodaj(new Obyczaj("Król Lear", 3));
 
 
-
         Koszyk koszyk = new Koszyk(klient);
         klient.przepakuj(koszyk);
         System.out.println(koszyk);
 
-        klient.zaplac(FormaPlatnosci.KARTA, false);
+        klient.zaplac(FormaPlatnosci.KARTA, true);
         System.out.println(klient.pobierzPortfel());
         System.out.println(klient.pobierzKoszyk());
+
         System.out.println(klient.pobierzListeZyczen());
     }
 }
