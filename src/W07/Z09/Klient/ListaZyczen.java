@@ -57,6 +57,8 @@ public class ListaZyczen implements Iterable<Film>{
     @Override
     public String toString() {
         StringBuilder output = new StringBuilder(this.wlasciciel.getImie()).append(':');
+        if (this.films.isEmpty())
+            return output.append("\n\t -----Lista życzeń jest pusta-----\n").toString();
         double koszt;
         for (Film film : this) {
             output.append("\n\t");

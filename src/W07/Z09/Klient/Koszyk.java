@@ -119,6 +119,8 @@ public class Koszyk implements Iterable<Film>{
     @Override
     public String toString() {
         StringBuilder output = new StringBuilder(this.wlasciciel.getImie()).append(':');
+        if (this.films.isEmpty())
+            return output.append("\n\t -----Koszyk jest pusty-----\n").toString();
         double koszt;
         for (Film film : this) {
             output.append("\n\t");
