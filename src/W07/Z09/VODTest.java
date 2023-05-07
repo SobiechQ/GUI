@@ -15,7 +15,7 @@ public class VODTest {
                 .filter(film -> film.getClass().getSimpleName().equalsIgnoreCase(typ))
                 .forEach(film -> {
                     try {
-                        cena.addAndGet(k.kosztFilmuDlaKlienta(film));
+                        cena.addAndGet((int) k.kosztFilmuDlaKlienta(film));
                     } catch (KoszykException e) {
                         System.out.println(e.getMessage());
                     }
@@ -39,6 +39,7 @@ public class VODTest {
         cennik.dodaj("komedia", "Królowa", 14, 7);        // 7 zł/urządzenie jeśli klient ma abonament, wpp. 14 zł/urządzenie
 
         cennik.dodaj("sensacja", "Król Artur");            // tylko dla abonamentów: darmowy dostęp
+        System.out.println(cennik);
 
 
         // Klient Kinoman deklaruje kwotę 70 zł na zamównienia; true oznacza, że klient posiada abonament w serwisie
@@ -93,8 +94,8 @@ public class VODTest {
         Klient krytyk = new Klient("Krytyk", 60, false);
 
         // Zamówił za dużo jak na tę kwotę
-        krytyk.dodaj(new Dramat("Król lew", 2));
         krytyk.dodaj(new Komedia("Królowa", 3));
+        krytyk.dodaj(new Dramat("Król lew", 2));
 
         // Co klient Krytyk ma na swojej liście życzeń
         System.out.println("Lista życzeń klienta " + krytyk.pobierzListeZyczen());

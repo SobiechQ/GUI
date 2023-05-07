@@ -1,5 +1,13 @@
 package W07.Z09.Cennik;
 
+/**
+ * @param cenaPakietBezAbo Cena przed przekroczeniem limitu urzadzen dla klientow bez abonamentu
+ * @param cenaBezPakietBezAbo Cena po wyjsciu poza limit maksLiczbaUrzadzan dla klientow bez abonamentu
+ * @param maksLiczbUrzadzen Po ilu urzadzeniach zmiana ceny
+ * @param cenaPakietAbo Cena przed przekroczeniem limitu urzadzen dla klientow z abonamentem
+ * @param cenaBezPakietAbo Cena po wyjsciu poza limit maksLiczbaUrzadzan dla klientow z abonamentem
+ * @param czyMoznaPozaAbonamentem flaga decydująca czy klienci nie posiadający abonamentu mają dostęp do filmu
+ */
 public record CennikRecord(String gatunek, String tytul,
                            int cenaPakietBezAbo, int cenaBezPakietBezAbo, int maksLiczbUrzadzen, int cenaPakietAbo, int cenaBezPakietAbo, boolean czyMoznaPozaAbonamentem) {
 
@@ -13,11 +21,10 @@ public record CennikRecord(String gatunek, String tytul,
         this(gatunek, tytul, cenaPakietBezAbo, cenaBezPakietBezAbo, maksLiczbUrzadzen, cenaAbo, cenaAbo, true);
     }
 
-        //todo naprawić javadoc
     /**
+     * @param maksLiczbUrzadzen Po ilu urzadzeniach zmiana ceny dla każdego klienta (niezaleznie od tego czy posiada abonament czy nie)
      * @param cenaPakiet Cena przed przekroczeniem limitu dla kazdego klienta (niezaleznie od tego czy posiada abonament czy nie)
      * @param cenaBezPakiet Cena po przekroczeniu limitu dla każdego klienta (niezaleznie od tego czy posiada abonament czy nie)
-     * @param maksLiczbUrzadzen Po ilu urzadzeniach zmiana ceny dla każdego klienta (niezaleznie od tego czy posiada abonament czy nie)
      */
     public CennikRecord(String gatunek, String tytul,int maksLiczbUrzadzen, int cenaPakiet, int cenaBezPakiet) {
         this(gatunek, tytul, cenaBezPakiet, cenaPakiet, maksLiczbUrzadzen, cenaBezPakiet, cenaPakiet, true);
@@ -40,7 +47,18 @@ public record CennikRecord(String gatunek, String tytul,
         this(gatunek, tytul, 0, 0, Integer.MAX_VALUE, 0, 0, false);
     }
 
-    public CennikRecord(){
-        this(null, null, 0,0,Integer.MAX_VALUE, 0,0, false);
+    @Override
+    public String toString() {
+        return "Film: (" +
+                "gatunek: " + gatunek +
+                ", tytul: " + tytul +
+                ", cenaPakietBezAbo: " + cenaPakietBezAbo +
+                ", cenaBezPakietBezAbo: " + cenaBezPakietBezAbo +
+                ", maksLiczbUrzadzen: " + maksLiczbUrzadzen +
+                ", cenaPakietAbo: " + cenaPakietAbo +
+                ", cenaBezPakietAbo: " + cenaBezPakietAbo +
+                ", czyMoznaPozaAbonamentem: " + czyMoznaPozaAbonamentem +
+                ')';
     }
+
 }

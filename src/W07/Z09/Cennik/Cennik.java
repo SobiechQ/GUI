@@ -6,6 +6,13 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
+/**
+ * Singleton.
+ * Prywatny konstruktor pozwala na pobiernie instancji tego obiektu tylko przez odpowiednie gettery.
+ * Na zasadzie mapy indeksowanej po tytułach filmów trzyma kolenje rekordy cennika (klasy CennikRecord), zawieraące informacje o cenach i dostępnościach filmów.
+ * @see CennikRecord
+ * @see Cennik#pobierzCennik()
+ */
 public class Cennik {
     private static Cennik self;
     private final Map<String,CennikRecord> cennikRecords;
@@ -14,6 +21,8 @@ public class Cennik {
     }
 
     /**
+     * Metoda jako jedyna tworząca nowy obiekt klasy Cennik.
+     * Jedyny sposób w Singletonie na uzyskanie dostępu do obiektu tej klasy.
      * @return Instancja klasy Cennik będącej Singletonem
      */
     public static Cennik pobierzCennik(){
@@ -27,7 +36,6 @@ public class Cennik {
      */
     public void dodaj(CennikRecord cennikRecord) {
         Cennik.pobierzCennik().cennikRecords.putIfAbsent(cennikRecord.tytul(), cennikRecord);
-//        Cennik.pobierzCennik().cennikRecords.add(cennikRecord);
     }
     /**
      * Tylko dla klientów z abonamentem. Darmowy dostęp.
@@ -42,11 +50,10 @@ public class Cennik {
     public void dodaj(String gatunek, String tytul, int cenaBezAbo, int cenaAbo){
         Cennik.pobierzCennik().dodaj(new CennikRecord(gatunek, tytul,cenaBezAbo, cenaAbo));
     }
-    //todo naprawic javadoc!
     /**
+     * @param maksLiczbUrzadzen Po ilu urzadzeniach zmiana ceny dla każdego klienta (niezaleznie od tego czy posiada abonament czy nie)
      * @param cenaPakiet Cena przed przekroczeniem limitu dla kazdego klienta (niezaleznie od tego czy posiada abonament czy nie)
      * @param cenaBezPakiet Cena po przekroczeniu limitu dla każdego klienta (niezaleznie od tego czy posiada abonament czy nie)
-     * @param maksLiczbUrzadzen Po ilu urzadzeniach zmiana ceny dla każdego klienta (niezaleznie od tego czy posiada abonament czy nie)
      */
     public void dodaj(String gatunek, String tytul, int maksLiczbUrzadzen, int cenaPakiet, int cenaBezPakiet){
         Cennik.pobierzCennik().dodaj(new CennikRecord(gatunek, tytul, maksLiczbUrzadzen, cenaPakiet, cenaBezPakiet));
@@ -61,23 +68,25 @@ public class Cennik {
         Cennik.pobierzCennik().dodaj(new CennikRecord(gatunek, tytul, cenaPakietBezAbo, cenaBezPakietBezAbo, maksLiczbUrzadzen, cenaAbo));
     }
 
-    public Map<String,CennikRecord> getCennikRecords() {
-        return Cennik.pobierzCennik().cennikRecords;
-    }
-
     /**
+     * odpowiednio chroniony getter, który nawet dla nieistniejącego w cenniku filmu nie zwróci nigdy wartości null. Optional chroni przed NullPointerException
      * @param key Szukanie w mapie po obiekcie Film, a nie po tytule filmu (w Cenniku kluczem dla rekordu jest String tytuł filmu)
-     * @return Optional object rekordu cennika. Jeżeli filmu nie ma w cenniku optional będzie pusty. Jeżeli jest w cenniku optional będzie zawierał obiekt rekordu tego cennika
+     * @return Optional object rekordu cennika. Pusty lub nie w zależności czy film występuje w cenniku
      */
     public Optional<CennikRecord> getRecordByKeyFilm(Film key){
         return Optional.ofNullable(Cennik.pobierzCennik().getCennikRecords().getOrDefault(key.getTytul(), null));
     }
 
-    @Override
-    public String toString() {
-        return "Cennik{" +
-                "cennikRecords=" + cennikRecords +
-                '}';
+    private Map<String,CennikRecord> getCennikRecords() {
+        return Cennik.pobierzCennik().cennikRecords;
     }
 
+    @Override
+    public String toString() {
+        StringBuilder output = new StringBuilder("Cennik: ");
+        for (String s : this.cennikRecords.keySet()) {
+            output.append("\n\t").append(this.cennikRecords.get(s).toString());
+        }
+        return output.append('\n').toString();
+    }
 }
