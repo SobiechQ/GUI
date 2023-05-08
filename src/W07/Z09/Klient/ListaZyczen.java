@@ -65,7 +65,7 @@ public class ListaZyczen implements Iterable<Film>{
             try {
                 koszt = Koszyk.kosztFilmuDlaKlienta(film, wlasciciel);
                 output.append(film.toString()).append(", koszt dla klienta: ").append(koszt);
-            } catch (KoszykException e) {
+            } catch (IllegalFilmAccessException e) {
                 output.append("Nie mozna obliczyc ceny filmu ").append(film).append(" ponieważ: ").append(e.getMessage());
             }
         }

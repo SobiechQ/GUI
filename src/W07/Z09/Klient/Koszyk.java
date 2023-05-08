@@ -37,7 +37,7 @@ public class Koszyk implements Iterable<Film>{
         TreeSet<Film> filmTreeSet = new TreeSet<>((o1, o2) -> {
             try {
                 return (int) (kosztFilmuDlaKlienta(o1) - kosztFilmuDlaKlienta(o2));
-            } catch (KoszykException e) {
+            } catch (IllegalFilmAccessException e) {
                 throw new RuntimeException(e);
             }
         });
@@ -63,11 +63,11 @@ public class Koszyk implements Iterable<Film>{
      * Można wywołać tą metode statycznie dla dowolnego innego klienta.
      * @param film dla jakiego filmu liczony jest koszt.
      * @return koszt który wlasciciel koszyka płaci za dany film
-     * @throws KoszykException Wtedy, gdy nie można podać ceny dla klienta. Np. gdy filmu nie ma wcale w cenniku albo gdy dany klient nie ma dostępu do filmu.
-     * @see KoszykException
+     * @throws IllegalFilmAccessException Wtedy, gdy nie można podać ceny dla klienta. Np. gdy filmu nie ma wcale w cenniku albo gdy dany klient nie ma dostępu do filmu.
+     * @see IllegalFilmAccessException
      * @see Koszyk#kosztFilmuDlaKlienta(Film, Klient)
      */
-    public double kosztFilmuDlaKlienta(Film film) throws KoszykException {
+    public double kosztFilmuDlaKlienta(Film film) throws IllegalFilmAccessException {
         return Koszyk.kosztFilmuDlaKlienta(film, wlasciciel);
     }
 
@@ -76,14 +76,14 @@ public class Koszyk implements Iterable<Film>{
      * @param film dla jakiego filmu liczony jest koszt.
      * @param klient dla jakiego klienta liczcony jest koszt
      * @return koszt który dany klient płaci za dany film
-     * @throws KoszykException Wtedy, gdy nie można podać ceny dla klienta. Np. gdy filmu nie ma wcale w cenniku albo gdy dany klient nie ma dostępu do filmu.
-     * @see KoszykException
+     * @throws IllegalFilmAccessException Wtedy, gdy nie można podać ceny dla klienta. Np. gdy filmu nie ma wcale w cenniku albo gdy dany klient nie ma dostępu do filmu.
+     * @see IllegalFilmAccessException
      */
-    public static double kosztFilmuDlaKlienta(Film film, Klient klient) throws KoszykException{
+    public static double kosztFilmuDlaKlienta(Film film, Klient klient) throws IllegalFilmAccessException {
         if (Cennik.pobierzCennik().getRecordByKeyFilm(film).isEmpty())
-            throw new KoszykException("Film nie wystepuje w cenniku");
+            throw new IllegalFilmAccessException("Film nie wystepuje w cenniku");
         if (!(Cennik.pobierzCennik().getRecordByKeyFilm(film).get().czyMoznaPozaAbonamentem()||klient.isCzyMaAbonament()))
-            throw new KoszykException("Film dostepny tylko dla klientów posiadających abonament");
+            throw new IllegalFilmAccessException("Film dostepny tylko dla klientów posiadających abonament");
 
         int koszt = 0;
         for (int i = 0; i < film.getNaIluUrzadzeniach(); i++) {
@@ -127,7 +127,7 @@ public class Koszyk implements Iterable<Film>{
             try {
                 koszt = Koszyk.kosztFilmuDlaKlienta(film, wlasciciel);
                 output.append(film.toString()).append(", koszt dla klienta: ").append(koszt);
-            } catch (KoszykException e) {
+            } catch (IllegalFilmAccessException e) {
                 output.append("Nie mozna obliczyc ceny filmu ").append(film).append(" ponieważ: ").append(e.getMessage());
             }
         }

@@ -92,7 +92,7 @@ public class Klient {
                     kosztCalkowity += formaPlatnosci.equals(FormaPlatnosci.KARTA) ? this.koszyk.kosztFilmuDlaKlienta(film)*1.01:this.koszyk.kosztFilmuDlaKlienta(film);
                     kopiaKoszyk.remove(film);
                     kopiaListaZyczen.remove(film);
-                } catch (KoszykException e) {
+                } catch (IllegalFilmAccessException e) {
                     System.out.println(e.getMessage());
                 }
         }
