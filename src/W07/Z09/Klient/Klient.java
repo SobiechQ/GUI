@@ -30,6 +30,8 @@ public class Klient {
         this.imie = imie;
         this.stanKonta = stanKonta;
         this.czyMaAbonament = czyMaAbonament;
+        this.koszyk = new Koszyk(this);
+        this.listaZyczen = new ListaZyczen(new ArrayList<>(), this);
     }
 
     /**
@@ -40,14 +42,6 @@ public class Klient {
      */
     public Klient(String imie, int stanKonta) {
         this(imie, stanKonta, false);
-    }
-
-    public ListaZyczen pobierzListeZyczen() {
-        //Takie rozwiązanie chroni przed null pointer exception.
-        //pobierając geterem nigdy nie zostanie zwrócony null, nawet jak klient nie ma listy życzeń.
-        if (this.listaZyczen == null)
-            this.listaZyczen = new ListaZyczen(new ArrayList<>(), this);
-        return this.listaZyczen;
     }
 
     /**
@@ -127,7 +121,7 @@ public class Klient {
     }
 
     public void dodaj(Film film) {
-        this.pobierzListeZyczen().add(film);
+        this.listaZyczen.add(film);
     }
 
     public String getImie() {
@@ -140,6 +134,7 @@ public class Klient {
      * @see Koszyk#przepakuj()
      */
     public void przepakuj(Koszyk koszyk) {
+        this.koszyk = koszyk;
         koszyk.przepakuj();
     }
 
@@ -157,6 +152,10 @@ public class Klient {
 
     public void setCzyMaAbonament(boolean czyMaAbonament) {
         this.czyMaAbonament = czyMaAbonament;
+    }
+
+    public ListaZyczen pobierzListeZyczen() {
+        return this.listaZyczen;
     }
 
     public ListaZyczen getListaZyczen() {
