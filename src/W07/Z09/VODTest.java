@@ -16,7 +16,7 @@ public class VODTest {
                 .forEach(film -> {
                     try {
                         cena.addAndGet((int) k.kosztFilmuDlaKlienta(film));
-                    } catch (KoszykException e) {
+                    } catch (IllegalFilmAccessException e) {
                         System.out.println(e.getMessage());
                     }
                 });
